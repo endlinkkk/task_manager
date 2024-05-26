@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="page-register bg-white p-3">
+                <h1 class="section-title h3">Авторизация</h1>
+
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <form method="post" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="login" class="form-label required">Login</label>
+                                {{form.username}}
+                                <div class="invalid-feedback">
+                                    Login is required
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label required">Password</label>
+                                {{form.password}}
+                                <div class="invalid-feedback">
+                                    Password is required
+                                </div>
+                            </div>
+
+                            
+                            <div class="no-account">
+                                <a href={% url "registration" %}>Нет аккаунта?</a>
+                                
+                            </div>
+
+                           
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Войти</button>
+                            </div>
+
+                            {% if form.errors %}
+                            <p class="validation-summary-errors"> Please enter a correct user name and password</p>
+                            {% endif %}
+
+                        </form>
+
+                        
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

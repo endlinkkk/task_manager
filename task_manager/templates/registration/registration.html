@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+  <div class="container-fluid mb-3">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+    <div class="row">
+        <div class="col-12">
+
+            <div class="page-register bg-white p-3">
+                <h1 class="section-title h3">Регистрация</h1>
+
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <form method="post" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="login" class="form-label required">Login</label>
+                                {{regform.username}}
+                                <div class="invalid-feedback">
+                                    Login is required
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label required">Password</label>
+                                {{regform.password1}}
+                                <div class="invalid-feedback">
+                                    Password is required
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password2" class="form-label required">Repeat Password</label>
+                                {{regform.password2}}
+                                <div class="invalid-feedback">
+                                    Password is required
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+                            </div>
+
+                        </form>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

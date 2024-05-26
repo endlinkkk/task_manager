@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="vh-100" style="background-color: #e2d5de;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+
+                <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-5">
+
+                        <h6 class="mb-3">Домашний органайзер</h6>
+
+                        <form id="addForm" class="d-flex justify-content-center align-items-center mb-4">
+                            <div data-mdb-input-init class="form-outline flex-fill">
+                                <input type="text" id="form3" class="form-control form-control-lg" />
+                                <label class="form-label" for="form3">Что вы хотите сделать сегодня?</label>
+                            </div>
+                            <button id="addButton" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg ms-2">Добавить</button>
+                        </form>
+
+                        <ul class="list-group mb-0">
+                            {% for task in tasks %}
+                                {% if not task.done %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <span style="font-size: 12px; color: #888;">До: {{task.before_at}}</span><br>
+                                        
+                                        <div class="d-flex align-items-center">
+                                        
+                                            {{task.title}}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="done-button btn btn-success me-2" data-task_id="{{task.id}}">Выполнено</button>
+                                        <button class="btn btn-warning me-2 btn-edit" data-mdb-toggle="modal" data-mdb-target="#editTaskModal" data-task_id="{{task.id}}">Изменить</button>
+                                        <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editTaskModalLabel">Редактировать задачу</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="edit-task-form">
+                                                            <div class="mb-3">
+                                                                <label for="taskName" class="form-label">Название задачи</label>
+                                                                <input type="text" class="form-control" id="taskName">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="taskDate" class="form-label">Дата выполнения</label>
+                                                                <input type="date" class="form-control" id="taskDate">
+                                                            </div>
+                                                            <div class="mb-3 d-none">
+                                                                <input type="hidden" class="form-control" id="actualTaskId" value="{{task.id}}">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="delete-button btn btn-danger" data-task_id="{{task.id}}">Удалить</button>
+                                    </div>
+                                </li>
+                                <br>
+                                {% endif %}
+                                
+                            {% endfor %}
+                           
+                            
+                            <!-- Добавьте аналогичные блоки для остальных задач -->
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Обработчик клика по кнопке "Изменить"
+        $('.btn-edit').on('click', function() {
+            var taskId = $(this).data('task_id'); // Получаем ID задачи
+            var taskTitle = $(this).closest('.list-group-item').find('.d-flex.align-items-center').text().trim(); // Получаем название задачи
+    
+            // Проверяем, что дата существует и в правильном формате
+            
+                
+    
+                // Заполняем поля формы в модальном окне
+                $('#taskName').val(taskTitle);
+                $('#actualTaskId').val(taskId);
+                
+            
+        });
+    });
+    
+    
+    
+</script>
+
+{% endblock content %}
