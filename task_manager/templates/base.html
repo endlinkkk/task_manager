@@ -55,6 +55,7 @@
   
        
         <!-- Avatar -->
+        {% if user.is_authenticated %}
         <div class="dropdown">
           <a
             data-mdb-dropdown-init
@@ -87,6 +88,9 @@
             </li>
           </ul>
         </div>
+        {% endif %}
+        
+
       </div>
       <!-- Right elements -->
     </div>
